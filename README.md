@@ -31,14 +31,15 @@ Click [here][] to get Instagram **Access Token** via [pixelunion].
 
 ```
 Usage:
-  instagram-images <access_token> [OPTIONS]
+  instagram-popular <access_token> [OPTIONS]
 
 Example:
-  instagram-images 1538218134.1677ed0.714cc89f60494a32a21e2948482d3336
+  instagram-popular 1538218134.1677ed0.714cc89f60494a32a21e2948482d3336
 
 Options:
   --dest, -d  The directory where all download images stored
-                                                   [default: "instagram-images"
+                                                    [default: "instagram-media"]
+
 ```
 
 ## Run Tests
