@@ -41,6 +41,8 @@ collectPopular = (access_token, dest) ->
   options =
     url: 'https://api.instagram.com/v1/media/popular'
     qs: {access_token}
+    # 30s timeout
+    timeout: 30000
 
   queue = async.queue worker, CONCURRENT_JOB
   queue.empty = () ->
@@ -66,7 +68,8 @@ collectPopular = (access_token, dest) ->
         filename = crypto.randomBytes(8).toString('hex')
         filename += path.extname media.images.standard_resolution.url
         task = _.partial fetch, media.images.standard_resolution.url, "#{dest}/#{filename}"
-        queue.push task
+        queue.push task, () ->
+          queue.empty() if queue.length() < 50
         callback()
 
       , (err) ->
