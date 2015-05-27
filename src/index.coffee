@@ -23,6 +23,8 @@ fetch = (url, to, done) ->
   options =
     url: url
     encoding: null
+    # 30s timeout
+    timeout: 30000
   request options, (error, response, body) ->
 
     return done(error) if error
@@ -70,6 +72,7 @@ collectPopular = (access_token, dest) ->
         task = _.partial fetch, media.images.standard_resolution.url, "#{dest}/#{filename}"
         queue.push task, () ->
           queue.empty() if queue.length() < 50
+          console.log "#{queue.length()}:#{queue.running()}"
         callback()
 
       , (err) ->
